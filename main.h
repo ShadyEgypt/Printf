@@ -21,6 +21,5 @@ int handle_pointer(va_list args);
 int handle_reverse(void);
 int get_integer_length(int num);
 int get_unsigned_integer_length(unsigned int num);
-int _printf0(const char *format, ...);
-int _printf1(const char *format, ...);
+int _printf(const char *format, ...);
 #endif
