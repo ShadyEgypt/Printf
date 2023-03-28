@@ -3,47 +3,94 @@
 
 
 /**
- * handle_integer - Handle integer format specifier
- * @args: va_list of arguments for format specifier
- *
- * Return: Number of characters printed
- */
-int handle_integer(va_list args)
-{
-	int num = va_arg(args, int);
-
-	p_int(num);
-	return (get_integer_length(num));
-}
-
-
-/**
  * p_int - print an integer
  * @n: the integer to print
  */
 
-void p_int(int n)
+int p_int(va_list args)
 {
-	unsigned int num;
+	int n = va_arg(args, int);
+	int num, last = n % 10, digit, exp = 1;
+	int  i = 1;
 
-	if (n < 0)
+	n = n / 10;
+	num = n;
+
+	if (last < 0)
 	{
 		_putchar('-');
-		num = -n;
+		num = -num;
+		n = -n;
+		last = -last;
+		i++;
 	}
-	else
+	if (num > 0)
 	{
+		while (num / 10 != 0)
+		{
+			exp = exp * 10;
+			num = num / 10;
+		}
 		num = n;
+		while (exp > 0)
+		{
+			digit = num / exp;
+			_putchar(digit + '0');
+			num = num - (digit * exp);
+			exp = exp / 10;
+			i++;
+		}
 	}
-
-	if (num / 10)
-	{
-		p_int(num / 10);
-	}
-
-	_putchar(num % 10 + '0');
+	_putchar(last + '0');
+	return (i);
 }
 
+
+/**
+ * printf_dec - prints decimal
+ * @args: argument to print
+ * Return: number of characters printed
+ */
+
+int p_dec(va_list args)
+{
+	int n = va_arg(args, int);
+	int num, last = n % 10, digit;
+	int  i = 1;
+	int exp = 1;
+
+	n = n / 10;
+	num = n;
+
+	if (last < 0)
+	{
+		_putchar('-');
+		num = -num;
+		n = -n;
+		last = -last;
+		i++;
+	}
+	if (num > 0)
+	{
+		while (num / 10 != 0)
+		{
+			exp = exp * 10;
+			num = num / 10;
+		}
+		num = n;
+		while (exp > 0)
+		{
+			digit = num / exp;
+			_putchar(digit + '0');
+			num = num - (digit * exp);
+			exp = exp / 10;
+			i++;
+		}
+	}
+	_putchar(last + '0');
+
+	return (i);
+}
 
 /**
  * get_integer_length - count num of digits

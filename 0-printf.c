@@ -16,8 +16,10 @@
 		count += handle_char(args);
 	else if (*format == 's')
 		count += handle_string(args);
-	else if (*format == 'd' || *format == 'i')
-		count += handle_integer(args);
+	else if (*format == 'd')
+		count += p_int(args);
+	else if (*format == 'i')
+		count += p_dec(args);
 	else if (*format == '%')
 	{
 		_putchar('%');
